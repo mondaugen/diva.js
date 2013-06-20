@@ -725,6 +725,8 @@ window.divaPlugins = [];
         // Vertical offset: from the top of the page (including the top padding)
         // Horizontal offset: from the center of the page; can be negative if to the left
         var gotoPage = function (pageIndex, verticalOffset, horizontalOffset) {
+            verticalOffset = typeof verticalOffset !== 'undefined' ? verticalOffset : 0; 
+            horizontalOffset = typeof horizontalOffset !== 'undefined' ? horizontalOffset: 0;
             var desiredTop = settings.heightAbovePages[pageIndex] + verticalOffset;
             var desiredLeft = (settings.maxWidths[settings.zoomLevel] - settings.panelWidth) / 2 + settings.horizontalPadding + horizontalOffset;
 
