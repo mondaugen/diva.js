@@ -1,9 +1,17 @@
 import os
+import sys
 from fabric.api import *
 
 # Path to the Closure Compiler .jar file
-CLOSURE_COMPILER_PATH = '/usr/local/Cellar/closure-compiler/20121212/libexec/build/compiler.jar'
+# You can set this manually by setting the CLOSURE_COMPILER_PATH environment
+# variable
+# $ export CLOSURE_COMPILER_PATH="path/to/your/closure/compiler"
 
+if os.getenv( 'CLOSURE_COMPILER_PATH' ) == None:
+  CLOSURE_COMPILER_PATH = '/usr/local/Cellar/closure-compiler/20121212/libexec/build/compiler.jar'
+else:
+  CLOSURE_COMPILER_PATH = os.getenv( 'CLOSURE_COMPILER_PATH' )
+sys.stderr.write('Using compiler: ' + CLOSURE_COMPILER_PATH +'\n')
 
 def less():
     """
