@@ -32,9 +32,9 @@ If you're including both files, the relevant HTML would look like this:
 
 ### Javascript includes
 
-The only dependency that is not included with diva is jQuery. You can either
-use a CDN, such as Google's, or host it yourself. It is recommended that you
-use the latest version, or at least 1.7+.
+The only dependencies that are not included with diva are jQuery and jQuery-UI.
+You can either use a CDN, such as Google's, or host them yourself. It is
+recommended that you use the latest versions, or at least 1.10+.
 
 You'll also have to include the diva.js source (file `diva.min.js` under
 `build/js`), as well as the script that actually instantiates the viewer
