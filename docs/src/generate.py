@@ -3,6 +3,7 @@
 import codecs
 import os
 import shutil
+import sys
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
@@ -13,14 +14,26 @@ import constants
 import jsparse
 import settings
 
+jsparser = None
+
+# configure path to diva.js
+if len(sys.argv) >= 2:
+  # get path to js as first argument after script name
+  jsparser = jsparse.JSParser( sys.argv[1] )
+  sys.stderr.write("[GENERATE.PY]: Using arg[1]: " + sys.argv[1] + " as path.")
+else:
+  raise Exception("Not enough args and so no path to diva.js specified.\n")
+
+sys.stderr.write("[GENERATE.PY]: Path to diva.js: " + jsparser.path_to_js + "\n")
+
 data = {
     'DIVA_GITHUB_URL': settings.DIVA_GITHUB_URL,
     'STATIC_URL': settings.STATIC_URL,
     'ROOT_URL': settings.ROOT_URL,
-    'configurable_settings': jsparse.get_settings('defaults'),
-    'other_settings': jsparse.get_settings('globals'),
-    'private_functions': jsparse.get_functions(),
-    'public_functions': jsparse.get_functions(public=True),
+    'configurable_settings': jsparser.get_settings('defaults'),
+    'other_settings': jsparser.get_settings('globals'),
+    'private_functions': jsparser.get_functions(),
+    'public_functions': jsparser.get_functions(public=True),
     'doc_links': constants.doc_links,
     'LATEST_VERSION': settings.LATEST_VERSION,
 }
@@ -91,7 +104,7 @@ for root, dirnames, filenames in os.walk(settings.CONTENT_DIR):
             print relative_path
             print " base: " + base_template
 
-            file = codecs.open(file_path, encoding='utf-8')
+            file = codecs.open(file_path, mode='r', encoding='utf-8')
             file_contents = markdown.markdown(file.read(), extensions=['pilcrow_toc', 'tables', 'codehilite', 'fenced_code'])
             contents = "{%% extends \"%s\" %%}{%% block content %%}\n%s\n{%% endblock %%}" % (base_template, file_contents)
             template = Template(contents)
