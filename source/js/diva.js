@@ -1207,6 +1207,7 @@ window.divaPlugins = [];
 
             var windowHeight = window.innerHeight || document.documentElement.clientHeight;
             var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
             // 2 or 1 pixels for the border
             var desiredWidth = windowWidth - settings.viewerWidthPadding - settings.scrollbarWidth - 2;
             var desiredHeight = windowHeight - outerOffset - settings.viewerHeightPadding - 1;
