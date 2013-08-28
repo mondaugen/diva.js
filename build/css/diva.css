@@ -37,6 +37,7 @@
 }
 .diva-tools {
   margin-top: 15px;
+  position: absolute;
 }
 .diva-tools .diva-tools-left {
   float: left;
